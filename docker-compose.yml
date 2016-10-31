@@ -1,0 +1,79 @@
+version: '2'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    volumes:
+      - blog_content:/web/blog
+      - acme_data:/web/acme/data
+    volumes_from:
+      - site:ro
+      - piwik:ro
+      # - adminer:ro
+    links:
+      - site
+      - blog
+      - piwik
+      - kgb
+      # - adminer
+    ports:
+      - 80:80
+      - 443:443
+      - 5000:5000
+
+  site:
+    build:
+      context: .
+      dockerfile: ./site/Dockerfile
+    volumes:
+      - /web/site
+      - kivy_docs:/web/docs
+      - downloads:/web/downloads
+    ports:
+      - 2457:2457
+    env_file:
+      - ./secrets/env/site
+
+  kgb:
+    build:
+      context: ./kgb
+    env_file:
+      - ./secrets/env/kgb
+
+  blog:
+    build:
+      context: ./blog
+    volumes:
+      - blog_content:/web/blog
+    links:
+      - mysql
+
+  piwik:
+    build:
+      context: ./piwik
+    links:
+      - mysql
+
+  mysql:
+    build:
+      context: ./mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+    env_file:
+      - ./secrets/env/mysql
+
+  # adminer:
+  #   build:
+  #     context: ./adminer
+  #   volumes:
+  #     - /adminer
+  #   links:
+  #     - mysql
+
+volumes:
+  blog_content:
+  mysql_data:
+  acme_data:
+  kivy_docs:
+  downloads:
