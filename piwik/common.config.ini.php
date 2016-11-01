@@ -5,8 +5,7 @@ enable_processing_unique_visitors_multiple_sites = 1
 anonymous_user_enable_use_segments_API = 0
 adding_segment_requires_access = "admin"
 default_day = today
-; change to 1 on tls deploy
-assume_secure_protocol = 0
+assume_secure_protocol = 1
 overlay_disable_framed_mode = 1
 api_service_url = https://api.piwik.org
 
