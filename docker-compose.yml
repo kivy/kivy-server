@@ -21,6 +21,11 @@ services:
       - 80:80
       - 443:443
       - 5000:5000
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
 
   site:
     build:
@@ -34,12 +39,16 @@ services:
       - 2457:2457
     env_file:
       - ./secrets/env/site
+    logging:
+      <<: *logging
 
   kgb:
     build:
       context: ./kgb
     env_file:
       - ./secrets/env/kgb
+    logging:
+      <<: *logging
 
   blog:
     build:
@@ -48,12 +57,16 @@ services:
       - blog_content:/web/blog
     links:
       - mysql
+    logging:
+      <<: *logging
 
   piwik:
     build:
       context: ./piwik
     links:
       - mysql
+    logging:
+      <<: *logging
 
   mysql:
     build:
@@ -62,6 +75,8 @@ services:
       - mysql_data:/var/lib/mysql
     env_file:
       - ./secrets/env/mysql
+    logging:
+      <<: *logging
 
   # adminer:
   #   build:
@@ -70,6 +85,8 @@ services:
   #     - /adminer
   #   links:
   #     - mysql
+  #   logging:
+  #     <<: *logging
 
 volumes:
   blog_content:
