@@ -78,6 +78,14 @@ services:
     logging:
       <<: *logging
 
+  nocarrier:
+    build:
+      context: ./nocarrier
+    env_file:
+      - ./secrets/env/nocarrier
+    logging:
+      <<: *logging
+
   # adminer:
   #   build:
   #     context: ./adminer
