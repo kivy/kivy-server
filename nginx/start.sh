@@ -6,7 +6,7 @@ if [ ! -f /etc/periodic/certs-update ]; then
 
 EOF
   chmod 0644 /etc/periodic/certs-update
-  touch /cron.log
+  mkfifo -m 666 /cron.log
 fi
 
 /usr/sbin/crond
