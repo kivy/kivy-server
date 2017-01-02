@@ -1,5 +1,7 @@
 FROM php:5.6-fpm
 
+ENV TINI_VERSION v0.13.2
+
 RUN set -ex \
     && apt-get update \
     && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
@@ -22,7 +24,7 @@ COPY start.sh /
 RUN set -ex \
     && apt-get update \
     && apt-get install -y cron curl \
-    && curl -L https://github.com/krallin/tini/releases/download/v0.10.0/tini > /tini \
+    && curl -L https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /tini \
     && chmod +x /tini \
     && chmod +x /start.sh
 
