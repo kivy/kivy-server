@@ -1,9 +1,11 @@
 FROM nginx:1.11.8-alpine
 
+ENV ACME_VERSION 2.6.4
+
 RUN set -ex \
     && apk add --no-cache openssl bash dcron tini curl \
     && mkdir -p /web/acme \
-    && curl -L https://raw.githubusercontent.com/Neilpang/acme.sh/master/acme.sh > /web/acme/acme.sh \
+    && curl -L https://raw.githubusercontent.com/Neilpang/acme.sh/$ACME_VERSION/acme.sh > /web/acme/acme.sh \
     && chmod +x /web/acme/acme.sh \
     && rm /etc/nginx/conf.d/*
 
