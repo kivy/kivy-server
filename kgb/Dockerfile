@@ -11,5 +11,5 @@ RUN set -ex \
 
 EXPOSE 5000
 
-ENTRYPOINT ["/sbin/tini", "-g", "-vv", "--"]
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["python", "/kgb/main.py"]

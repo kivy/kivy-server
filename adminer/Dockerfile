@@ -17,5 +17,5 @@ RUN set -ex \
     && curl -L https://raw.githubusercontent.com/vrana/adminer/v${ADMINER_VERSION}/plugins/plugin.php > plugins/plugin.php \
     && curl -L https://raw.githubusercontent.com/vrana/adminer/v${ADMINER_VERSION}/plugins/version-noverify.php > plugins/version-noverify.php
 
-ENTRYPOINT ["/sbin/tini", "-g", "-vv", "--"]
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["php-fpm"]

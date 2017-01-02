@@ -16,5 +16,5 @@ COPY start.sh /
 RUN set -ex \
     && chmod +x /start.sh
 
-ENTRYPOINT ["/tini", "-g", "-vv", "--"]
+ENTRYPOINT ["/tini", "-g", "--"]
 CMD ["/start.sh"]

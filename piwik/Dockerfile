@@ -16,5 +16,5 @@ RUN set -ex \
     && ln -sr piwik.js pw.js \
     && ln -sr piwik.php pw.php
 
-ENTRYPOINT ["/tini", "-g", "-vv", "--", "/entrypoint.sh"]
+ENTRYPOINT ["/tini", "-g", "--", "/entrypoint.sh"]
 CMD ["/start.sh"]

@@ -15,5 +15,5 @@ COPY ./nginx/start.sh /start.sh
 RUN set -ex \
     && chmod +x /start.sh
 
-ENTRYPOINT ["/sbin/tini", "-g", "-vv", "--"]
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["/start.sh"]

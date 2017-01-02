@@ -23,5 +23,5 @@ RUN set -ex \
 
 EXPOSE 2457
 
-ENTRYPOINT ["/sbin/tini", "-g", "-vv", "--"]
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["/start.sh"]
