@@ -1,6 +1,6 @@
 FROM alpine:3.4
 
-ENV RCLONE_VERSION 1.33
+ENV RCLONE_VERSION 1.35
 
 RUN set -ex \
     && apk add --no-cache dcron curl bash git openssh rsync tini \
