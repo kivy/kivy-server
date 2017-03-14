@@ -1,7 +1,5 @@
 FROM php:5.6-fpm
 
-ENV TINI_VERSION v0.13.2
-
 RUN set -ex \
     && apt-get update \
     && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
@@ -19,14 +17,26 @@ RUN set -ex \
     } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 COPY custom-php.ini /usr/local/etc/php/conf.d/
-COPY start.sh /
+
+COPY entry.sh start.sh backup.sh /
+RUN set -ex \
+    && chmod +x /entry.sh /start.sh /backup.sh
+
+ENV TINI_VERSION v0.13.2
+ENV RCLONE_VERSION v1.35
 
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y cron curl \
-    && curl -L https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /tini \
-    && chmod +x /tini \
-    && chmod +x /start.sh
+    && apt-get install -y cron curl unzip \
+    && curl -L https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /usr/local/bin/tini \
+    && chmod +x /usr/local/bin/tini \
+    && curl -L https://github.com/ncw/rclone/releases/download/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip > rclone.zip \
+    && unzip rclone.zip && mv rclone-$RCLONE_VERSION-linux-amd64/rclone /usr/local/bin/rclone \
+    && rm -r rclone.zip rclone-$RCLONE_VERSION-linux-amd64 \
+    && chmod +x /usr/local/bin/rclone \
+    && apt-get purge -y --auto-remove unzip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/*
 
-ENTRYPOINT ["/tini", "-g", "--"]
+ENTRYPOINT ["tini", "-g", "--", "/entry.sh"]
 CMD ["/start.sh"]

@@ -57,6 +57,11 @@ services:
       - blog_content:/web/blog
     links:
       - blog_mysql
+    environment:
+      - BACKUP_MODE=backup  # none, backup, restore
+      - BASE_BACKUP_CRON=0 6 * * Sun  # At 06:00 on Sun.
+    env_file:
+      - ./secrets/env/blog-s3-backup
     logging:
       <<: *logging
 
