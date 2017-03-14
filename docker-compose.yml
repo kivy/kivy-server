@@ -56,7 +56,21 @@ services:
     volumes:
       - blog_content:/web/blog
     links:
-      - mysql
+      - blog_mysql
+    logging:
+      <<: *logging
+
+  blog_mysql:
+    build:
+      context: ./mysql
+    volumes:
+      - blog_mysql_data:/var/lib/mysql
+    environment:
+      - BACKUP_MODE=backup  # none, backup, restore
+      - BASE_BACKUP_CRON=0 6 * * Sun  # At 06:00 on Sun.
+    env_file:
+      - ./secrets/env/blog-mysql
+      - ./secrets/env/blog-s3-backup
     logging:
       <<: *logging
 
@@ -64,17 +78,21 @@ services:
     build:
       context: ./piwik
     links:
-      - mysql
+      - piwik_mysql
     logging:
       <<: *logging
 
-  mysql:
+  piwik_mysql:
     build:
       context: ./mysql
     volumes:
-      - mysql_data:/var/lib/mysql
+      - piwik_mysql_data:/var/lib/mysql
+    environment:
+      - BACKUP_MODE=backup  # none, backup, restore
+      - BASE_BACKUP_CRON=0 7 * * Sun  # At 07:00 on Sun.
     env_file:
-      - ./secrets/env/mysql
+      - ./secrets/env/piwik-mysql
+      - ./secrets/env/piwik-s3-backup
     logging:
       <<: *logging
 
@@ -92,13 +110,15 @@ services:
   #   volumes:
   #     - /adminer
   #   links:
-  #     - mysql
+  #     - blog_mysql
+  #     - piwik_mysql
   #   logging:
   #     <<: *logging
 
 volumes:
   blog_content:
-  mysql_data:
+  blog_mysql_data:
+  piwik_mysql_data:
   acme_data:
   kivy_docs:
   downloads:

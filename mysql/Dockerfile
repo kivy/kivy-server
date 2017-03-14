@@ -1,20 +1,24 @@
 FROM mysql:5.7.16
 
 ENV TINI_VERSION v0.13.2
+ENV RCLONE_VERSION v1.35
 
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates wget \
-    && wget -O /tini https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini \
-    && chmod +x /tini \
-    && apt-get purge -y --auto-remove ca-certificates wget \
+    && apt-get install -y --no-install-recommends cron xz-utils unzip ca-certificates wget \
+    && wget -O /usr/local/bin/tini https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini \
+    && chmod +x /usr/local/bin/tini \
+    && wget -O /rclone.zip https://github.com/ncw/rclone/releases/download/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip \
+    && unzip rclone.zip && mv rclone-$RCLONE_VERSION-linux-amd64/rclone /usr/local/bin/rclone \
+    && rm -r rclone.zip rclone-$RCLONE_VERSION-linux-amd64 \
+    && chmod +x /usr/local/bin/rclone \
+    && apt-get purge -y --auto-remove unzip wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
-COPY start.sh /
-
+COPY entry.sh start.sh backup.sh /
 RUN set -ex \
-    && chmod +x /start.sh
+    && chmod +x /entry.sh /start.sh /backup.sh
 
-ENTRYPOINT ["/tini", "-g", "--"]
+ENTRYPOINT ["tini", "-g", "--", "/entry.sh"]
 CMD ["/start.sh"]
