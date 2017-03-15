@@ -1,3 +1,4 @@
 secrets
+.env
 test*
 .remote-sync.json

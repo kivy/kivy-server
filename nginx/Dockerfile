@@ -11,7 +11,7 @@ RUN set -ex \
 
 COPY ./nginx/conf/*.conf /etc/nginx/
 COPY ./nginx/conf/sites-enabled/kivy.org.conf /etc/nginx/conf.d/
-COPY ./secrets/file/nginx/kivy-dhparam.pem /etc/nginx/certs/
+COPY .env/file/nginx/kivy-dhparam.pem /etc/nginx/certs/
 COPY ./nginx/start.sh /start.sh
 
 RUN set -ex \

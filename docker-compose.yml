@@ -44,7 +44,7 @@ services:
     ports:
       - 2457:2457
     env_file:
-      - ./secrets/env/ssh-pubkey
+      - .env/envfile/ssh-pubkey
     logging:
       <<: *logging
 
@@ -57,7 +57,7 @@ services:
     ports:
       - 2458:2458
     env_file:
-      - ./secrets/env/ssh-pubkey
+      - .env/envfile/ssh-pubkey
     logging:
       <<: *logging
 
@@ -65,7 +65,7 @@ services:
     build:
       context: ./kgb
     env_file:
-      - ./secrets/env/kgb
+      - .env/envfile/kgb
     logging:
       <<: *logging
 
@@ -80,7 +80,7 @@ services:
       - BACKUP_MODE=backup  # none, backup, restore
       - BASE_BACKUP_CRON=0 6 * * Sun  # At 06:00 on Sun.
     env_file:
-      - ./secrets/env/blog-s3-backup
+      - .env/envfile/blog-s3-backup
     logging:
       <<: *logging
 
@@ -93,8 +93,8 @@ services:
       - BACKUP_MODE=backup  # none, backup, restore
       - BASE_BACKUP_CRON=0 6 * * Sun  # At 06:00 on Sun.
     env_file:
-      - ./secrets/env/blog-mysql
-      - ./secrets/env/blog-s3-backup
+      - .env/envfile/blog-mysql
+      - .env/envfile/blog-s3-backup
     logging:
       <<: *logging
 
@@ -115,8 +115,8 @@ services:
       - BACKUP_MODE=backup  # none, backup, restore
       - BASE_BACKUP_CRON=0 7 * * Sun  # At 07:00 on Sun.
     env_file:
-      - ./secrets/env/piwik-mysql
-      - ./secrets/env/piwik-s3-backup
+      - .env/envfile/piwik-mysql
+      - .env/envfile/piwik-s3-backup
     logging:
       <<: *logging
 
@@ -124,7 +124,7 @@ services:
     build:
       context: ./nocarrier
     env_file:
-      - ./secrets/env/nocarrier
+      - .env/envfile/nocarrier
     logging:
       <<: *logging
 
