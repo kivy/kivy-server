@@ -22,7 +22,7 @@ COPY entry.sh start.sh backup.sh /
 RUN set -ex \
     && chmod +x /entry.sh /start.sh /backup.sh
 
-ENV TINI_VERSION v0.13.2
+ENV TINI_VERSION v0.14.0
 ENV RCLONE_VERSION v1.35
 
 RUN set -ex \

@@ -1,6 +1,6 @@
 FROM piwik:3.0.0
 
-ENV TINI_VERSION v0.13.2
+ENV TINI_VERSION v0.14.0
 
 COPY custom-php.ini /usr/local/etc/php/conf.d/
 COPY common.config.ini.php /usr/src/piwik/config/
