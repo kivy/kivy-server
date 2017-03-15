@@ -4,7 +4,6 @@
 default_day = today
 assume_secure_protocol = 1
 api_service_url = https://api.piwik.org
-anonymous_user_enable_use_segments_API = 0
 
 trusted_hosts[] = kivy.org
 trusted_hosts[] = pw.kivy.org
