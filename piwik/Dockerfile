@@ -11,10 +11,7 @@ RUN set -ex \
     && apt-get install -y cron \
     && chmod +x /start.sh \
     && curl -L https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /tini \
-    && chmod +x /tini \
-    && cd /usr/src/piwik \
-    && ln -sr piwik.js pw.js \
-    && ln -sr piwik.php pw.php
+    && chmod +x /tini
 
 ENTRYPOINT ["/tini", "-g", "--", "/entrypoint.sh"]
 CMD ["/start.sh"]
