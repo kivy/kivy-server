@@ -1,4 +1,4 @@
-FROM piwik:3.0.0
+FROM piwik:3.0.2
 
 ENV TINI_VERSION v0.14.0
 
