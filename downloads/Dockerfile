@@ -18,7 +18,7 @@ RUN set -ex \
 
 COPY .env/file/downloads/.rclone.conf /root/
 
-COPY ./site/start.sh /
+COPY ./downloads/start.sh /
 RUN set -ex \
     && chmod +x /start.sh
 

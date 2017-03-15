@@ -6,7 +6,9 @@ if [ ! -f /etc/periodic/downloads-update ]; then
 
 EOF
   chmod 0644 /etc/periodic/downloads-update
+fi
 
+if [ ! -f /root/.ssh/authorized_keys ]; then
   mkdir /root/.ssh
   echo -e "$TRAVIS_KEY" > /root/.ssh/authorized_keys
   echo -e "$APPVEYOR_KEY" >> /root/.ssh/authorized_keys
