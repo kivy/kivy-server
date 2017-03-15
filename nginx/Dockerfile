@@ -1,6 +1,6 @@
 FROM nginx:1.11.8-alpine
 
-ENV ACME_VERSION 2.6.4
+ENV ACME_VERSION 2.6.6
 
 RUN set -ex \
     && apk add --no-cache openssl bash dcron tini curl \
