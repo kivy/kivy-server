@@ -1,4 +1,4 @@
-FROM nginx:1.11.8-alpine
+FROM nginx:1.11.10-alpine
 
 ENV ACME_VERSION 2.6.6
 
