@@ -3,7 +3,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: ./nginx/Dockerfile
+      dockerfile: nginx/Dockerfile
     volumes:
       - acme_data:/web/acme/data
       - kivy_docs:/web/docs:ro
@@ -30,7 +30,7 @@ services:
 
   site:
     build:
-      context: ./site
+      context: site
     volumes:
       - /web/site
     logging:
@@ -38,7 +38,7 @@ services:
 
   docs:
     build:
-      context: ./docs
+      context: docs
     volumes:
       - kivy_docs:/web/docs
     ports:
@@ -51,7 +51,7 @@ services:
   downloads:
     build:
       context: .
-      dockerfile: ./downloads/Dockerfile
+      dockerfile: downloads/Dockerfile
     volumes:
       - downloads:/web/downloads
     ports:
@@ -63,7 +63,7 @@ services:
 
   kgb:
     build:
-      context: ./kgb
+      context: kgb
     env_file:
       - .env/envfile/kgb
     logging:
@@ -71,7 +71,7 @@ services:
 
   blog:
     build:
-      context: ./blog
+      context: blog
     volumes:
       - blog_content:/web/blog
     links:
@@ -86,7 +86,7 @@ services:
 
   blog_mysql:
     build:
-      context: ./mysql
+      context: mysql
     volumes:
       - blog_mysql_data:/var/lib/mysql
     environment:
@@ -100,7 +100,7 @@ services:
 
   piwik:
     build:
-      context: ./piwik
+      context: piwik
     links:
       - piwik_mysql
     logging:
@@ -108,7 +108,7 @@ services:
 
   piwik_mysql:
     build:
-      context: ./mysql
+      context: mysql
     volumes:
       - piwik_mysql_data:/var/lib/mysql
     environment:
@@ -122,7 +122,7 @@ services:
 
   nocarrier:
     build:
-      context: ./nocarrier
+      context: nocarrier
     env_file:
       - .env/envfile/nocarrier
     logging:
@@ -130,7 +130,7 @@ services:
 
   # adminer:
   #   build:
-  #     context: ./adminer
+  #     context: adminer
   #   volumes:
   #     - /adminer
   #   links:
