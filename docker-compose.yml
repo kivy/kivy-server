@@ -5,14 +5,15 @@ services:
       context: .
       dockerfile: ./nginx/Dockerfile
     volumes:
-      - blog_content:/web/blog
       - acme_data:/web/acme/data
+      - kivy_docs:/web/docs:ro
+      - downloads:/web/downloads:ro
+      - blog_content:/web/blog
     volumes_from:
       - site:ro
       - piwik:ro
       # - adminer:ro
     links:
-      - site
       - blog
       - piwik
       - kgb
@@ -29,16 +30,34 @@ services:
 
   site:
     build:
-      context: .
-      dockerfile: ./site/Dockerfile
+      context: ./site
     volumes:
       - /web/site
+    logging:
+      <<: *logging
+
+  docs:
+    build:
+      context: ./docs
+    volumes:
       - kivy_docs:/web/docs
-      - downloads:/web/downloads
     ports:
       - 2457:2457
     env_file:
-      - ./secrets/env/site
+      - ./secrets/env/ssh-pubkey
+    logging:
+      <<: *logging
+
+  downloads:
+    build:
+      context: .
+      dockerfile: ./downloads/Dockerfile
+    volumes:
+      - downloads:/web/downloads
+    ports:
+      - 2458:2458
+    env_file:
+      - ./secrets/env/ssh-pubkey
     logging:
       <<: *logging
 
@@ -124,6 +143,6 @@ volumes:
   blog_content:
   blog_mysql_data:
   piwik_mysql_data:
-  acme_data:
-  kivy_docs:
   downloads:
+  kivy_docs:
+  acme_data:
