@@ -14,7 +14,7 @@ RUN set -ex \
     && ssh-keygen -A \
     && apk del curl
 
-COPY .env/file/site/.rclone.conf /root/
+COPY .env/file/downloads/.rclone.conf /root/
 
 COPY ./site/start.sh /
 RUN set -ex \
