@@ -2,10 +2,9 @@ version: '2'
 services:
   nginx:
     build:
-      context: .
-      dockerfile: nginx/Dockerfile
+      context: nginx
     volumes:
-      - acme_data:/web/acme/data
+      - tls_data:/web/tls/data
       - kivy_docs:/web/docs:ro
       - downloads:/web/downloads:ro
       - blog_content:/web/blog
@@ -18,6 +17,8 @@ services:
       - piwik
       - kgb
       # - adminer
+    environment:
+      - BOOTSTRAP_TLS=false
     ports:
       - 80:80
       - 443:443
@@ -145,4 +146,4 @@ volumes:
   piwik_mysql_data:
   downloads:
   kivy_docs:
-  acme_data:
+  tls_data:
