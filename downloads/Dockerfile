@@ -9,7 +9,7 @@ RUN set -ex \
 
 ENV RCLONE_VERSION 1.35
 RUN set -ex \
-    && apk add --no-cache curl \
+    && apk add --no-cache ca-certificates curl \
     && curl -L "https://github.com/ncw/rclone/releases/download/v${RCLONE_VERSION}/rclone-v${RCLONE_VERSION}-linux-amd64.zip" > /rclone.zip \
     && unzip rclone.zip && mv rclone-v${RCLONE_VERSION}-linux-amd64/rclone /usr/local/bin/rclone \
     && rm rclone.zip && rm -R rclone-v${RCLONE_VERSION}-linux-amd64 \
