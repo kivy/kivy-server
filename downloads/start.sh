@@ -2,7 +2,7 @@
 
 if [ ! -f /etc/periodic/downloads-update ]; then
   cat << EOF > /etc/periodic/downloads-update
-0 */6 * * * /usr/local/bin/rclone sync gdrive:Kivy/Downloads /web/downloads >> /dev/null 2>&1
+# 0 */6 * * * /usr/local/bin/rclone sync gdrive:Kivy/Downloads /web/downloads >> /dev/null 2>&1
 
 EOF
   chmod 0644 /etc/periodic/downloads-update
