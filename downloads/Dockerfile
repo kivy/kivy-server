@@ -17,6 +17,7 @@ RUN set -ex \
     && apk del curl
 
 COPY .env/file/downloads/.rclone.conf /root/
+COPY .env/file/downloads/authorized_keys /
 
 COPY ./downloads/start.sh /
 RUN set -ex \

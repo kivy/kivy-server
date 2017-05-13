@@ -44,8 +44,6 @@ services:
       - kivy_docs:/web/docs
     ports:
       - 2457:2457
-    env_file:
-      - .env/envfile/ssh-pubkey
     logging:
       <<: *logging
 
@@ -57,8 +55,6 @@ services:
       - downloads:/web/downloads
     ports:
       - 2458:2458
-    env_file:
-      - .env/envfile/ssh-pubkey
     logging:
       <<: *logging
 

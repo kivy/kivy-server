@@ -7,6 +7,8 @@ RUN set -ex \
     && echo -e "Port 2457" >> /etc/ssh/sshd_config \
     && ssh-keygen -A
 
+COPY .env/file/docs/authorized_keys /
+
 COPY start.sh /
 RUN set -ex \
     && chmod +x /start.sh
