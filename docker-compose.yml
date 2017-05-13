@@ -39,7 +39,8 @@ services:
 
   docs:
     build:
-      context: docs
+      context: .
+      dockerfile: docs/Dockerfile
     volumes:
       - kivy_docs:/web/docs
     ports:

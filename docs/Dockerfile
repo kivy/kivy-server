@@ -9,7 +9,7 @@ RUN set -ex \
 
 COPY .env/file/docs/authorized_keys /
 
-COPY start.sh /
+COPY ./docs/start.sh /
 RUN set -ex \
     && chmod +x /start.sh
 
