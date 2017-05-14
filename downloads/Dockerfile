@@ -19,11 +19,11 @@ RUN set -ex \
 COPY .env/file/downloads/.rclone.conf /root/
 COPY .env/file/downloads/authorized_keys /
 
-COPY ./downloads/start.sh /
+COPY downloads/script /script
 RUN set -ex \
-    && chmod +x /start.sh
+    && chmod +x /script/*.sh
 
 EXPOSE 2458
 
 ENTRYPOINT ["/sbin/tini", "-g", "--"]
-CMD ["/start.sh"]
+CMD ["/script/start.sh"]
