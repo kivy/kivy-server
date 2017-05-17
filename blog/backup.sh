@@ -2,14 +2,13 @@ set -e
 
 _CMD=""
 
-while test $# -gt 0
-do
-    case "$1" in
-        --cron)
-            _CMD="cron"
-            ;;
-    esac
-    shift
+while [ ${#} -gt 0 ]; do
+  case "${1}" in
+    --cron)
+    _CMD="cron"
+    ;;
+  esac
+  shift
 done
 
 if [ "$_CMD" = "cron" ]; then

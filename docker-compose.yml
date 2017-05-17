@@ -56,6 +56,11 @@ services:
       - downloads:/web/downloads
     ports:
       - 2458:2458
+    environment:
+      - BACKUP_MODE=backup  # none, backup, restore
+      - BASE_BACKUP_CRON=0 5 * * *  # At 05:00.
+    env_file:
+      - .env/envfile/downloads-s3-backup
     logging:
       <<: *logging
 

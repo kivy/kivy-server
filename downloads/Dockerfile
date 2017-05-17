@@ -16,14 +16,13 @@ RUN set -ex \
     && chmod +x /usr/local/bin/rclone \
     && apk del curl
 
-COPY .env/file/downloads/.rclone.conf /root/
 COPY .env/file/downloads/authorized_keys /
 
-COPY downloads/script /script
+COPY downloads/cont /cont
 RUN set -ex \
-    && chmod +x /script/*.sh
+    && chmod +x /cont/script/*.sh
 
 EXPOSE 2458
 
-ENTRYPOINT ["/sbin/tini", "-g", "--"]
-CMD ["/script/start.sh"]
+ENTRYPOINT ["/sbin/tini", "-g", "--", "/cont/script/entry.sh"]
+CMD ["/cont/script/start.sh"]
