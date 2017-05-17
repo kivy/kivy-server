@@ -4,7 +4,7 @@ RUN set -ex \
     && apk add --no-cache curl openssl bash dcron tini \
     && rm /etc/nginx/conf.d/*
 
-ENV ACME_VERSION 2.6.6
+ENV ACME_VERSION 2.6.9
 RUN set -ex \
     && curl -L https://github.com/Neilpang/acme.sh/raw/$ACME_VERSION/acme.sh > /usr/local/bin/acme.sh \
     && chmod +x /usr/local/bin/acme.sh
