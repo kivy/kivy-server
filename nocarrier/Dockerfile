@@ -1,4 +1,4 @@
-FROM openjdk:8u111-jre-alpine
+FROM openjdk:8u121-jre-alpine
 
 ENV NOCARRIER_VERSION v1.0.0
 
