@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 RUN set -ex \
     && apk add --no-cache dcron bash git tini \
