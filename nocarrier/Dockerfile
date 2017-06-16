@@ -5,7 +5,7 @@ ENV NOCARRIER_VERSION v1.0.0
 RUN set -ex \
     && apk add --no-cache bash dcron tini s6 curl \
     && mkdir /app \
-    && curl -L https://github.com/twbs/no-carrier/releases/download/$NOCARRIER_VERSION/no-carrier.jar > /app/no-carrier.jar \
+    && curl -Lf https://github.com/twbs/no-carrier/releases/download/$NOCARRIER_VERSION/no-carrier.jar > /app/no-carrier.jar \
     && apk del curl
 
 COPY entry.sh start.sh /

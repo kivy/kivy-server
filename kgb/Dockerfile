@@ -6,7 +6,7 @@ RUN set -ex \
     && apk add --no-cache curl tini \
     && pip install --no-cache-dir -r requirements.txt \
     && mkdir kgb \
-    && curl -L https://raw.githubusercontent.com/kivy/kgb2/master/main.py > /kgb/main.py \
+    && curl -Lf https://raw.githubusercontent.com/kivy/kgb2/master/main.py > /kgb/main.py \
     && apk del curl
 
 EXPOSE 5000

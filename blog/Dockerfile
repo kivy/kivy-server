@@ -28,9 +28,9 @@ ENV RCLONE_VERSION v1.36
 RUN set -ex \
     && apt-get update \
     && apt-get install -y cron curl unzip \
-    && curl -L https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /usr/local/bin/tini \
+    && curl -Lf https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /usr/local/bin/tini \
     && chmod +x /usr/local/bin/tini \
-    && curl -L https://github.com/ncw/rclone/releases/download/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip > rclone.zip \
+    && curl -Lf https://github.com/ncw/rclone/releases/download/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip > rclone.zip \
     && unzip rclone.zip && mv rclone-$RCLONE_VERSION-linux-amd64/rclone /usr/local/bin/rclone \
     && rm -r rclone.zip rclone-$RCLONE_VERSION-linux-amd64 \
     && chmod +x /usr/local/bin/rclone \

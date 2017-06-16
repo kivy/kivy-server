@@ -10,7 +10,7 @@ RUN set -ex \
     && apt-get update \
     && apt-get install -y cron \
     && chmod +x /start.sh \
-    && curl -L https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /tini \
+    && curl -Lf https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini > /tini \
     && chmod +x /tini
 
 ENTRYPOINT ["/tini", "-g", "--", "/entrypoint.sh"]

@@ -6,7 +6,7 @@ RUN set -ex \
 
 ENV ACME_VERSION 2.6.9
 RUN set -ex \
-    && curl -L https://github.com/Neilpang/acme.sh/raw/$ACME_VERSION/acme.sh > /usr/local/bin/acme.sh \
+    && curl -Lf https://github.com/Neilpang/acme.sh/raw/$ACME_VERSION/acme.sh > /usr/local/bin/acme.sh \
     && chmod +x /usr/local/bin/acme.sh
 
 COPY conf/*.conf /etc/nginx/
