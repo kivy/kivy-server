@@ -1,4 +1,4 @@
-FROM nginx:1.13.1-alpine
+FROM nginx:1.13.3-alpine
 
 RUN set -ex \
     && apk add --no-cache curl openssl bash dcron tini \
