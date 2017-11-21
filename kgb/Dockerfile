@@ -1,4 +1,4 @@
-FROM python:2.7.13-alpine
+FROM python:2.7.14-alpine
 
 COPY requirements.txt /
 
