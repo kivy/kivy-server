@@ -23,7 +23,7 @@ RUN set -ex \
     && chmod +x /entry.sh /start.sh /backup.sh
 
 ENV TINI_VERSION v0.14.0
-ENV RCLONE_VERSION v1.36
+ENV RCLONE_VERSION v1.38
 
 RUN set -ex \
     && apt-get update \
