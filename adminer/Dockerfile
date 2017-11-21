@@ -1,4 +1,4 @@
-FROM php:5.6.30-fpm-alpine
+FROM php:5.6.32-fpm-alpine
 
 ENV ADMINER_VERSION 4.3.1
 
