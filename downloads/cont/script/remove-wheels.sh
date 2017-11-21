@@ -33,8 +33,4 @@ if [ "${KEEP_LAST}" -gt 0 ]; then
   EXCLUDE=$(printf "! -name %s " $(ls -t *.whl | head -"${KEEP_LAST}"))
 fi
 
-<<<<<<< HEAD
-find . -maxdepth 1 -type f -mtime +"${OLDER_THAN}" -name "*.whl" $EXCLUDE -exec rm -- {} \;
-=======
 find . -maxdepth 1 -type f -mtime +"${OLDER_THAN}" -name "*.whl" ${EXCLUDE} -exec rm -- {} \;
->>>>>>> 0d9c6b886b390a67fae055c4172b216390016de7
