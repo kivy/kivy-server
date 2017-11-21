@@ -123,14 +123,6 @@ services:
     logging:
       <<: *logging
 
-  nocarrier:
-    build:
-      context: nocarrier
-    env_file:
-      - .env/envfile/nocarrier
-    logging:
-      <<: *logging
-
   # adminer:
   #   build:
   #     context: adminer
