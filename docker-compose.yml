@@ -138,8 +138,8 @@ services:
     build:
       context: .
       dockerfile: ci/Dockerfile
-    environment:
-      - APPVEYOR_SCHEDULE=0 7 * * *  # At 07:00.
+      args:
+        APPVEYOR_SCHEDULE: "0 5 * * *"  # At 05:00
     env_file:
       - .env/envfile/ci
     logging:

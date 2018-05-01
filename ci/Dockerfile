@@ -5,6 +5,7 @@ RUN set -ex \
 
 COPY ci/script.sh /
 
+ARG APPVEYOR_SCHEDULE
 RUN \
     chmod +x /script.sh && \
     (crontab -l 2>/dev/null; \
