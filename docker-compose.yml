@@ -134,6 +134,17 @@ services:
   #   logging:
   #     <<: *logging
 
+  ci:
+    build:
+      context: .
+      dockerfile: ci/Dockerfile
+    environment:
+      - APPVEYOR_SCHEDULE=0 7 * * *  # At 07:00.
+    env_file:
+      - .env/envfile/ci
+    logging:
+      <<: *logging
+
 volumes:
   blog_content:
   blog_mysql_data:
