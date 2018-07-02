@@ -1,6 +1,6 @@
 FROM php:5.6.32-fpm-alpine
 
-ENV ADMINER_VERSION 4.3.1
+ENV ADMINER_VERSION 4.6.3
 
 RUN set -ex \
     && apk add --no-cache tini \
