@@ -1,7 +1,7 @@
 FROM mysql:5.7.18
 
 ENV TINI_VERSION v0.14.0
-ENV RCLONE_VERSION v1.38
+ENV RCLONE_VERSION v1.42
 
 RUN set -ex \
     && apt-get update \

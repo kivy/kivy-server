@@ -7,12 +7,12 @@ RUN set -ex \
     && echo -e "Port 2458" >> /etc/ssh/sshd_config \
     && ssh-keygen -A
 
-ENV RCLONE_VERSION 1.38
+ENV RCLONE_VERSION v1.42
 RUN set -ex \
     && apk add --no-cache ca-certificates curl \
-    && curl -Lf "https://github.com/ncw/rclone/releases/download/v${RCLONE_VERSION}/rclone-v${RCLONE_VERSION}-linux-amd64.zip" > /rclone.zip \
-    && unzip rclone.zip && mv rclone-v${RCLONE_VERSION}-linux-amd64/rclone /usr/local/bin/rclone \
-    && rm rclone.zip && rm -R rclone-v${RCLONE_VERSION}-linux-amd64 \
+    && curl -Lf "https://github.com/ncw/rclone/releases/download/${RCLONE_VERSION}/rclone-${RCLONE_VERSION}-linux-amd64.zip" > /rclone.zip \
+    && unzip rclone.zip && mv rclone-${RCLONE_VERSION}-linux-amd64/rclone /usr/local/bin/rclone \
+    && rm rclone.zip && rm -R rclone-${RCLONE_VERSION}-linux-amd64 \
     && chmod +x /usr/local/bin/rclone \
     && apk del curl
 
