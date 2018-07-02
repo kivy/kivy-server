@@ -1,7 +1,7 @@
 FROM nginx:1.15.0-alpine
 
 RUN set -ex \
-    && apk add --no-cache curl openssl bash dcron tini \
+    && apk add --no-cache curl openssl bash dcron \
     && rm /etc/nginx/conf.d/*
 
 ENV ACME_VERSION 2.7.4
@@ -16,5 +16,4 @@ COPY start.sh tls.sh /
 RUN set -ex \
     && chmod +x /start.sh /tls.sh
 
-ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["/start.sh"]

@@ -3,7 +3,6 @@ FROM php:5.6.36-fpm-alpine
 ENV ADMINER_VERSION 4.6.3
 
 RUN set -ex \
-    && apk add --no-cache tini \
     && docker-php-ext-install mysql pdo_mysql
 
 WORKDIR /web/adminer
@@ -17,5 +16,4 @@ RUN set -ex \
     && curl -Lf https://raw.githubusercontent.com/vrana/adminer/v${ADMINER_VERSION}/plugins/plugin.php > plugins/plugin.php \
     && curl -Lf https://raw.githubusercontent.com/vrana/adminer/v${ADMINER_VERSION}/plugins/version-noverify.php > plugins/version-noverify.php
 
-ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["php-fpm"]

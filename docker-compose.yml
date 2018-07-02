@@ -1,6 +1,7 @@
-version: '2'
+version: '2.4'
 services:
   nginx:
+    init: true
     build:
       context: nginx
     volumes:
@@ -30,6 +31,7 @@ services:
         max-file: "10"
 
   site:
+    init: true
     build:
       context: site
     volumes:
@@ -38,6 +40,7 @@ services:
       <<: *logging
 
   docs:
+    init: true
     build:
       context: .
       dockerfile: docs/Dockerfile
@@ -49,6 +52,7 @@ services:
       <<: *logging
 
   downloads:
+    init: true
     build:
       context: .
       dockerfile: downloads/Dockerfile
@@ -65,6 +69,7 @@ services:
       <<: *logging
 
   kgb:
+    init: true
     build:
       context: kgb
     env_file:
@@ -73,6 +78,7 @@ services:
       <<: *logging
 
   blog:
+    init: true
     build:
       context: blog
     volumes:
@@ -88,6 +94,7 @@ services:
       <<: *logging
 
   blog_mysql:
+    init: true
     build:
       context: mysql
     volumes:
@@ -102,6 +109,7 @@ services:
       <<: *logging
 
   piwik:
+    init: true
     build:
       context: piwik
     links:
@@ -110,6 +118,7 @@ services:
       <<: *logging
 
   piwik_mysql:
+    init: true
     build:
       context: mysql
     volumes:
@@ -124,6 +133,7 @@ services:
       <<: *logging
 
   # adminer:
+  #   init: true
   #   build:
   #     context: adminer
   #   volumes:
@@ -135,6 +145,7 @@ services:
   #     <<: *logging
 
   ci:
+    init: true
     build:
       context: .
       dockerfile: ci/Dockerfile

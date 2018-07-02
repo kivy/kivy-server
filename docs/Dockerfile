@@ -1,7 +1,7 @@
 FROM alpine:3.7
 
 RUN set -ex \
-    && apk add --no-cache bash openssh rsync tini \
+    && apk add --no-cache bash openssh rsync \
     && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
     && echo -e "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config \
     && echo -e "Port 2457" >> /etc/ssh/sshd_config \
@@ -15,5 +15,4 @@ RUN set -ex \
 
 EXPOSE 2457
 
-ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["/start.sh"]
