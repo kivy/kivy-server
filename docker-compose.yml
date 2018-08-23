@@ -6,7 +6,7 @@ services:
       context: nginx
     volumes:
       - tls_data:/web/tls/data
-      - kivy_docs:/web/docs:ro
+      - kivy_doc:/web/doc:ro
       - downloads:/web/downloads:ro
       - blog_content:/web/blog
     volumes_from:
@@ -45,7 +45,7 @@ services:
       context: .
       dockerfile: docs/Dockerfile
     volumes:
-      - kivy_docs:/web/docs
+      - kivy_doc:/web/doc
     ports:
       - 2457:2457
     logging:
