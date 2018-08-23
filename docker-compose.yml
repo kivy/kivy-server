@@ -161,5 +161,5 @@ volumes:
   blog_mysql_data:
   piwik_mysql_data:
   downloads:
-  kivy_docs:
+  kivy_doc:
   tls_data:
