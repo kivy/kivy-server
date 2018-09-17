@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-DOMAINS="kivy.org www.kivy.org wiki.kivy.org blog.kivy.org pw.kivy.org dba.kivy.org"
+DOMAINS="kivy.org www.kivy.org wiki.kivy.org blog.kivy.org pw.kivy.org dba.kivy.org chat.kivy.org"
 
 FIRST_DOMAIN=$(echo $DOMAINS | { read first _; echo $first; })
 KEYPATH=/web/tls/data/certs/$FIRST_DOMAIN/domain.key

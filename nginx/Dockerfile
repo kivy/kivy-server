@@ -1,7 +1,7 @@
 FROM nginx:1.15.0-alpine
 
 RUN set -ex \
-    && apk add --no-cache curl openssl bash dcron \
+    && apk add --no-cache curl openssl bash socat dcron \
     && rm /etc/nginx/conf.d/*
 
 ENV ACME_VERSION 2.7.8
