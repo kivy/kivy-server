@@ -17,6 +17,7 @@ services:
       - blog
       - piwik
       - kgb
+      - mcnotify
       # - adminer
     environment:
       - BOOTSTRAP_TLS=false
@@ -132,18 +133,6 @@ services:
     logging:
       <<: *logging
 
-  # adminer:
-  #   init: true
-  #   build:
-  #     context: adminer
-  #   volumes:
-  #     - /adminer
-  #   links:
-  #     - blog_mysql
-  #     - piwik_mysql
-  #   logging:
-  #     <<: *logging
-
   ci:
     init: true
     build:
@@ -155,6 +144,31 @@ services:
       - .env/envfile/ci
     logging:
       <<: *logging
+
+  mcnotify:
+    init: true
+    build:
+      context: mcnotify
+    environment:
+      - NODE_ENV=production
+      - WEBHOOK_PATH=/mcnotify
+      - DISABLE_STATS=true
+    env_file:
+      - .env/envfile/mcnotify
+    logging:
+      <<: *logging
+
+  # adminer:
+  #   init: true
+  #   build:
+  #     context: adminer
+  #   volumes:
+  #     - /adminer
+  #   links:
+  #     - blog_mysql
+  #     - piwik_mysql
+  #   logging:
+  #     <<: *logging
 
 volumes:
   blog_content:
