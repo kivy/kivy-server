@@ -17,6 +17,7 @@ services:
       - blog
       - piwik
       - kgb
+      - mcnotify
       # - adminer
     environment:
       - BOOTSTRAP_TLS=false
