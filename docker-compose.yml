@@ -16,7 +16,6 @@ services:
     links:
       - blog
       - piwik
-      - kgb
       - mcnotify
       # - adminer
     environment:
@@ -66,15 +65,6 @@ services:
       - BASE_BACKUP_CRON=0 5 * * *  # At 05:00.
     env_file:
       - .env/envfile/downloads-s3-backup
-    logging:
-      <<: *logging
-
-  kgb:
-    init: true
-    build:
-      context: kgb
-    env_file:
-      - .env/envfile/kgb
     logging:
       <<: *logging
 

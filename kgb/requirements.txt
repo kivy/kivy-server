@@ -1,4 +1,0 @@
-Flask==1.0.2
-irc==16.3
-requests==2.19.1
-certifi==2018.4.16
