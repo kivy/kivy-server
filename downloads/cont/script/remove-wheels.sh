@@ -25,12 +25,12 @@ KEEP_LAST="${KEEP_LAST:-0}"
 
 cd "${DIRECTORY}" || exit 1
 
-if ! ls *whl 1> /dev/null 2>&1; then
+if ! ls *.* 1> /dev/null 2>&1; then
   exit
 fi
 
 if [ "${KEEP_LAST}" -gt 0 ]; then
-  EXCLUDE=$(printf "! -name %s " $(ls -t *.whl | head -"${KEEP_LAST}"))
+  EXCLUDE=$(printf "! -name %s " $(ls -t *.* | head -"${KEEP_LAST}"))
 fi
 
-find . -maxdepth 1 -type f -mtime +"${OLDER_THAN}" -name "*.whl" ${EXCLUDE} -exec rm -- {} \;
+find . -maxdepth 1 -type f -mtime +"${OLDER_THAN}" -name "*.*" ${EXCLUDE} -exec rm -- {} \;
