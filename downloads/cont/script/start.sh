@@ -17,6 +17,14 @@ EOF
   chmod 0644 /etc/periodic/clean-ci
 fi
 
+if [ ! -f /etc/periodic/pypi-server-ci ]; then
+  cat << EOF > /etc/periodic/pypi-server-ci
+$(shuf -i0-59 -n1) 0 * * * /cont/script/pypi_server.sh
+
+EOF
+  chmod 0644 /etc/periodic/pypi-server-ci
+fi
+
 if [ ! -f /root/.ssh/authorized_keys ]; then
   mkdir -p /root/.ssh
   mv /authorized_keys /root/.ssh/authorized_keys
