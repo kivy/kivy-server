@@ -12,6 +12,7 @@ $(shuf -i0-59 -n1) 0 * * * /cont/script/remove-wheels.sh -d /web/downloads/appve
 $(shuf -i0-59 -n1) 0 * * * /cont/script/remove-wheels.sh -d /web/downloads/ci/linux/kivy --older-than 7 --keep-last 10 >> /dev/null 2>&1
 $(shuf -i0-59 -n1) 0 * * * /cont/script/remove-wheels.sh -d /web/downloads/ci/osx/kivy --older-than 7 --keep-last 10 >> /dev/null 2>&1
 $(shuf -i0-59 -n1) 0 * * * /cont/script/remove-wheels.sh -d /web/downloads/ci/osx/app --keep-last 6 >> /dev/null 2>&1
+$(shuf -i0-59 -n1) 0 * * * /cont/script/remove-wheels.sh -d /web/downloads/ci/raspberrypi/kivy --older-than 7 --keep-last 16 >> /dev/null 2>&1
 
 EOF
   chmod 0644 /etc/periodic/clean-ci
