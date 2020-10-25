@@ -1,15 +1,11 @@
 #!/bin/sh
 
-if [ ! -f /root/.ssh/authorized_keys ]; then
-  mkdir -p /root/.ssh
-  mv /authorized_keys /root/.ssh/authorized_keys
+if [ ! -f /etc/periodic/site-docs-update ]; then
+  cat << EOF > /etc/periodic/site-update
+*/10 * * * * /sync.sh
 
-  if [ -d ~/.ssh ] && [ -w ~/.ssh ]; then
-      chown -R root:root ~/.ssh && chmod 700 ~/.ssh/
-      if [ "$(ls -A ~/.ssh)" ]; then
-        chmod 600 ~/.ssh/*
-      fi
-  fi
+EOF
+  chmod 0644 /etc/periodic/site-docs-update
 fi
 
-/usr/sbin/sshd -D -e
+/usr/sbin/crond -f

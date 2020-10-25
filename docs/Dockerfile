@@ -1,18 +1,14 @@
-FROM alpine:3.7
+FROM alpine:3.12
 
 RUN set -ex \
-    && apk add --no-cache bash openssh rsync \
-    && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
-    && echo -e "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config \
-    && echo -e "Port 2457" >> /etc/ssh/sshd_config \
-    && ssh-keygen -A
+    && apk add --no-cache dcron bash git rsync \
+    && git clone https://github.com/kivy/kivy-website-docs.git
+    && mkdir web && cd web && mkdir doc
 
-COPY .env/file/docs/authorized_keys /
-
-COPY ./docs/start.sh /
+COPY start.sh /
+COPY sync.sh /
 RUN set -ex \
     && chmod +x /start.sh
-
-EXPOSE 2457
+    && chmod +x /sync.sh
 
 CMD ["/start.sh"]
