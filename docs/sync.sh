@@ -1,12 +1,18 @@
 #!/bin/bash
 set -e
 
+DOCS_ROOT=/web/doc
+
 # remove versions not in the repo anymore
-for d in /web/doc/*/ ; do
+pushd "$DOCS_ROOT" > /dev/null
+for d in */ ; do
+  # remove forward slash
+  d=${d::-1}
   if [ -z "$(git ls-remote --heads https://github.com/kivy/kivy-website-docs.git "docs-$d")" ]; then
     rm -rf "$d"
   fi
 done
+popd > /dev/null
 
 cd /kivy-website-docs
 git checkout main --quiet
@@ -30,7 +36,7 @@ for full_name in $(git ls-remote --heads https://github.com/kivy/kivy-website-do
 
   if ! git show-ref --quiet refs/heads/docs-"$name"; then
     # branch doesn't exists, get it
-    git checkout --track origin/docs-"$name"
+    git checkout --track origin/docs-"$name" --quiet
   else
     if [[ $(git rev-parse "docs-$name") == $(git rev-parse "docs-$name@{u}") ]]; then
       # there has been no changes, nothing to do
@@ -38,15 +44,15 @@ for full_name in $(git ls-remote --heads https://github.com/kivy/kivy-website-do
     fi
 
     # update to remote
-    git checkout docs-"$name"
-    git reset --hard origin/docs-"$name"
+    git checkout docs-"$name" --quiet
+    git reset --hard origin/docs-"$name" --quiet
   fi
 
-  if [ -d /web/doc/"$name" ]; then
-    mkdir /web/doc/"$name"
+  if [ ! -d "$DOCS_ROOT/$name" ]; then
+    mkdir "$DOCS_ROOT/$name"
   fi;
 
-  rsync --delete --force -r ./ /web/doc/"$name"/
+  rsync --delete --force --exclude .git/ --exclude .gitignore -r ./ "$DOCS_ROOT/$name/"
 done
 
-echo '['"$(IFS=, ; echo "${versions[*]}")"']' > /web/doc/versions.json
+echo '['"$(IFS=, ; echo "${versions[*]}")"']' > "$DOCS_ROOT/versions.json"
