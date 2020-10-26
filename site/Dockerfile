@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.12
 
 RUN set -ex \
     && apk add --no-cache dcron bash git \
