@@ -8,7 +8,7 @@ RUN set -ex \
 COPY start.sh /
 COPY sync.sh /
 RUN set -ex \
-    && chmod +x /start.sh
+    && chmod +x /start.sh \
     && chmod +x /sync.sh
 
 CMD ["/start.sh"]
