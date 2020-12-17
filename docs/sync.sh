@@ -38,7 +38,7 @@ for full_name in $(git ls-remote --heads https://github.com/kivy/kivy-website-do
     # branch doesn't exists, get it
     git checkout --track origin/docs-"$name" --quiet
   else
-    if [[ $(git rev-parse "docs-$name") == $(git rev-parse "docs-$name@{u}") ]]; then
+    if [[ $(git rev-parse "docs-$name") == $(git rev-parse "docs-$name@{u}") && -d "$DOCS_ROOT/$name" ]]; then
       # there has been no changes, nothing to do
       continue
     fi
