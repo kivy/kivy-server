@@ -128,6 +128,57 @@ service docker stop
 service docker restart
 ```
 
+Add access for team member (do the following for both `ssh -p 2458 root@kivy.org` and `ssh root@kivy.org`)
+
+```shell
+# get public ssh key from them (`cat ~/.ssh/id_rsa.pub`)
+# open keys in nano
+nano ~/.ssh/authorized_keys
+# in nano paste their key in a new line (should be something like `ssh-rsa AAAAB...iSTP username@hostname`)
+# save in nano and exit
+```
+
+Remove access for team member (do the following for both `ssh -p 2458 root@kivy.org` and `ssh root@kivy.org`)
+
+```shell
+# open keys in nano
+nano ~/.ssh/authorized_keys
+# locate line with their key, delete it with ctrl-k
+# save and exit
+```
+
+Add ssh key for CI to push to downloads and use it in the CI
+
+On the download server:
+```shell
+# access download server
+ssh -p 2458 root@kivy.org
+# generate key for the service (e.g. github)
+ssh-keygen -t ed25519 -C "kivy-repo@githubci" -q -N ""
+# it prompts where to save it, give it unique name
+Enter file in which to save the key (/root/.ssh/id_ed25519): /root/.ssh/id_ed25519_kivy_ghci
+# copy the key
+cat ~/.ssh/id_ed25519_kivy_ghci.pub
+# and add it to the host's authorized_keys using nano
+nano ~/.ssh/authorized_keys
+# save nano
+
+# copy the private key from terminal
+cat ~/.ssh/id_ed25519_kivy_ghci
+```
+Now, go to repo of interest and paste the private key as a secrent variable (e.g. `UBUNTU_UPLOAD_KEY`).
+In the yml do:
+```yaml
+env:
+  UBUNTU_UPLOAD_KEY: ${{ secrets.UBUNTU_UPLOAD_KEY }}
+```
+And to use it do:
+```shell
+printf "%s" "$UBUNTU_UPLOAD_KEY" > ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa
+echo -e "Host $1\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+```
+
 #### Configure Matomo
 
 The `piwik` container

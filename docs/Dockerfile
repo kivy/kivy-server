@@ -1,7 +1,7 @@
 FROM alpine:3.12
 
 RUN set -ex \
-    && apk add --no-cache dcron bash git rsync \
+    && apk add --no-cache dcron bash git rsync nano \
     && git clone https://github.com/kivy/kivy-website-docs.git \
     && mkdir web && cd web && mkdir doc
 
