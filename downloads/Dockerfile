@@ -1,7 +1,7 @@
 FROM alpine:3.7
 
 RUN set -ex \
-    && apk add --no-cache dcron bash openssh rsync \
+    && apk add --no-cache dcron bash openssh rsync nano \
     && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
     && echo -e "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config \
     && echo -e "Port 2458" >> /etc/ssh/sshd_config \
