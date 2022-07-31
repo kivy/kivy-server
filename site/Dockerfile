@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 RUN set -ex \
     && apk add --no-cache dcron bash git python3 py3-pip nodejs npm \
