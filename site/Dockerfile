@@ -2,7 +2,7 @@ FROM alpine:3.16
 
 RUN set -ex \
     && apk add --no-cache dcron bash git python3 py3-pip nodejs npm \
-    && mkdir web && cd web && git clone https://github.com/misl6/kivy-website.git && cd kivy-website && git checkout feat/new-website
+    && mkdir web && cd web && git clone https://github.com/kivy/kivy-website.git && cd kivy-website && git checkout master
 
 COPY start.sh /
 RUN set -ex \
