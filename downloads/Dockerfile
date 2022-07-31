@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.16
 
 RUN set -ex \
     && apk add --no-cache dcron bash openssh rsync nano \
@@ -10,7 +10,7 @@ RUN set -ex \
 ENV RCLONE_VERSION v1.42
 RUN set -ex \
     && apk add --no-cache ca-certificates curl \
-    && curl -Lf "https://github.com/ncw/rclone/releases/download/${RCLONE_VERSION}/rclone-${RCLONE_VERSION}-linux-amd64.zip" > /rclone.zip \
+    && curl -Lf "https://downloads.rclone.org/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip" > /rclone.zip \
     && unzip rclone.zip && mv rclone-${RCLONE_VERSION}-linux-amd64/rclone /usr/local/bin/rclone \
     && rm rclone.zip && rm -R rclone-${RCLONE_VERSION}-linux-amd64 \
     && chmod +x /usr/local/bin/rclone \

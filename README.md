@@ -2,9 +2,6 @@
 
 ## Quickly deploy changes
 
-Make sure to also [configure Matomo](#configure-matomo),
-if the `piwik` container has changed.
-
 ```shell
 ssh root@kivy.org
 cd ~/docker/kivy-server
@@ -178,33 +175,6 @@ printf "%s" "$UBUNTU_UPLOAD_KEY" > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 echo -e "Host $1\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 ```
-
-#### Configure Matomo
-
-The `piwik` container
-[needs manual configuration](https://github.com/matomo-org/matomo/issues/10257)
-whenever it is recreated. If Matomo is not configured,
-visitor logs will not be kept. Visit https://pw.kivy.org after the container
-has started and follow the installation steps.
-
-These are the two installation steps that require further action,
-besides clicking Next.
-
-Database Setup:
-
-* Database Server: `piwik_mysql`
-* Login: `root`
-* Password: see the `MYSQL_ROOT_PASSWORD` variable in `.env/envfile/piwik-mysql`
-* Database Name: `piwik`
-* Table Prefix: `piwik_`
-
-
-Creating the Tables:
-
-Make sure to **reuse the existing tables**, otherwise they will be overwritten.
-
-The installation is completed when you are redirected
-to the authentication form.
 
 ## Troubleshoot low disk space
 

@@ -11,19 +11,13 @@ services:
       - blog_content:/web/blog
     volumes_from:
       - site:ro
-      - piwik:ro
-      # - adminer:ro
     links:
       - blog
-      - piwik
-      - mcnotify
-      # - adminer
     environment:
       - BOOTSTRAP_TLS=false
     ports:
       - 80:80
       - 443:443
-      - 5000:5000
     logging: &logging
       driver: "json-file"
       options:
@@ -99,71 +93,9 @@ services:
     logging:
       <<: *logging
 
-  piwik:
-    init: true
-    build:
-      context: piwik
-    links:
-      - piwik_mysql
-    logging:
-      <<: *logging
-
-  piwik_mysql:
-    init: true
-    build:
-      context: mysql
-    volumes:
-      - piwik_mysql_data:/var/lib/mysql
-    environment:
-      - BACKUP_MODE=backup  # none, backup, restore
-      - BASE_BACKUP_CRON=0 7 * * Sun  # At 07:00 on Sun.
-    env_file:
-      - .env/envfile/piwik-mysql
-      - .env/envfile/piwik-s3-backup
-    logging:
-      <<: *logging
-
-  ci:
-    init: true
-    build:
-      context: .
-      dockerfile: ci/Dockerfile
-      args:
-        APPVEYOR_SCHEDULE: "0 5 * * *"  # At 05:00
-    env_file:
-      - .env/envfile/ci
-    logging:
-      <<: *logging
-
-  mcnotify:
-    init: true
-    build:
-      context: mcnotify
-    environment:
-      - NODE_ENV=production
-      - WEBHOOK_PATH=/mcnotify
-      - DISABLE_STATS=true
-    env_file:
-      - .env/envfile/mcnotify
-    logging:
-      <<: *logging
-
-  # adminer:
-  #   init: true
-  #   build:
-  #     context: adminer
-  #   volumes:
-  #     - /adminer
-  #   links:
-  #     - blog_mysql
-  #     - piwik_mysql
-  #   logging:
-  #     <<: *logging
-
 volumes:
   blog_content:
   blog_mysql_data:
-  piwik_mysql_data:
   downloads:
   kivy_doc:
   tls_data:

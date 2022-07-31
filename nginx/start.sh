@@ -10,9 +10,9 @@ EOF
   mkfifo -m 666 /cron.log
 fi
 
-if [ "$BOOTSTRAP_TLS" = "true" ]; then
-  /tls.sh
-fi
+#if [ "$BOOTSTRAP_TLS" = "true" ]; then
+#  /tls.sh
+#fi
 
 /usr/sbin/crond
 nginx
