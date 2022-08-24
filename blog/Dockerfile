@@ -1,4 +1,4 @@
-FROM php:5.6.36-fpm
+FROM php:5.6.40-fpm
 
 RUN set -ex \
     && apt-get update \
@@ -27,7 +27,7 @@ ENV RCLONE_VERSION v1.42
 RUN set -ex \
     && apt-get update \
     && apt-get install -y cron curl unzip \
-    && curl -Lf https://github.com/ncw/rclone/releases/download/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip > rclone.zip \
+    && curl --insecure -Lf "https://downloads.rclone.org/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip" > rclone.zip \
     && unzip rclone.zip && mv rclone-$RCLONE_VERSION-linux-amd64/rclone /usr/local/bin/rclone \
     && rm -r rclone.zip rclone-$RCLONE_VERSION-linux-amd64 \
     && chmod +x /usr/local/bin/rclone \
