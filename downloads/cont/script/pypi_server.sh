@@ -6,7 +6,7 @@ echo -e "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Links for Kivy</title>\n 
 
 for f in /web/downloads/ci/win/kivy /web/downloads/ci/osx/kivy /web/downloads/ci/linux/kivy /web/downloads/ci/raspberrypi/kivy
 do
-    find -L $f -name "*.whl" | sort | grep -E '.+Kivy-([0-9a-z]{1,6}\.)+[0-9a-z]+-.+\.whl' | tr "\n" "\0" |
+    find -L $f -name "*.whl" | sort | grep -E '.+[Kk]ivy-([0-9a-z]{1,6}\.)+[0-9a-z]+-.+\.whl' | tr "\n" "\0" |
         while IFS= read -r -d '' fname; do
             relative_name=${fname#"/web/downloads/"}
             clean_name=$(basename "$fname")
@@ -22,7 +22,7 @@ server_path="/web/downloads/simple/kivy-examples"
 
 echo -e "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Links for Kivy-examples</title>\n  </head>\n  <body>\n    <h1>Links for Kivy-examples</h1>" > /tmp/kivy_pypi_index.html
 
-find -L /web/downloads/ci/win/kivy -name "*.whl" | sort | grep -E '.+Kivy_examples-([0-9a-z]{1,6}\.)+[0-9a-z]+-.+\.whl' | tr "\n" "\0" |
+find -L /web/downloads/ci/win/kivy -name "*.whl" | sort | grep -E '.+[Kk]ivy_examples-([0-9a-z]{1,6}\.)+[0-9a-z]+-.+\.whl' | tr "\n" "\0" |
     while IFS= read -r -d '' fname; do
         relative_name=${fname#"/web/downloads/"}
         clean_name=$(basename "$fname")
