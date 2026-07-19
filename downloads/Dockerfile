@@ -7,7 +7,7 @@ RUN set -ex \
     && echo -e "Port 2458" >> /etc/ssh/sshd_config \
     && ssh-keygen -A
 
-ENV RCLONE_VERSION v1.42
+ENV RCLONE_VERSION=v1.42
 RUN set -ex \
     && apk add --no-cache ca-certificates curl \
     && curl -Lf "https://downloads.rclone.org/$RCLONE_VERSION/rclone-$RCLONE_VERSION-linux-amd64.zip" > /rclone.zip \

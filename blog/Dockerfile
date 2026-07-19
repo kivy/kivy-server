@@ -22,7 +22,7 @@ COPY entry.sh start.sh backup.sh /
 RUN set -ex \
     && chmod +x /entry.sh /start.sh /backup.sh
 
-ENV RCLONE_VERSION v1.42
+ENV RCLONE_VERSION=v1.42
 
 RUN set -ex \
     && apt-get update \
