@@ -1,5 +1,11 @@
 # Kivy Server
 
+## Architecture
+
+See [Documentation deployment flow](docs/deployment-flow.md) for the path from
+the `kivy/kivy` sources through generated documentation branches to the
+containers that serve `kivy.org`.
+
 ## Quickly deploy changes
 
 ```shell
