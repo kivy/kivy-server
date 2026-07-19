@@ -1,4 +1,4 @@
-FROM nginx:1.23.1-alpine
+FROM nginx:1.30.4-alpine3.24
 
 RUN set -ex \
     && apk add --no-cache curl openssl bash socat dcron \
