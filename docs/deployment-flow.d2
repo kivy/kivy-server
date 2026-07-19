@@ -1,0 +1,102 @@
+direction: down
+
+classes: {
+  repo: {
+    shape: rectangle
+    style.fill: "#F8FAFC"
+    style.stroke: "#475569"
+    style.border-radius: 8
+  }
+  process: {
+    shape: rectangle
+    style.fill: "#EFF6FF"
+    style.stroke: "#2563EB"
+    style.border-radius: 8
+  }
+  storage: {
+    shape: cylinder
+    style.fill: "#F0FDF4"
+    style.stroke: "#16A34A"
+  }
+  client: {
+    shape: rectangle
+    style.fill: "#FAFAFA"
+    style.stroke: "#737373"
+    style.border-radius: 8
+  }
+}
+
+github: "GitHub" {
+  direction: right
+  style.fill: "#F8FAFC"
+  style.stroke: "#94A3B8"
+  style.border-radius: 12
+
+  kivy: "Repository: kivy/kivy" {
+    direction: right
+    class: repo
+    source: "Documentation sources"
+    ci: "GitHub Actions\ngen_docs job" {
+      class: process
+    }
+    source -> ci: "push event"
+  }
+
+  generated: "Repository: kivy/kivy-website-docs\ndocs-<branch> branches\ngenerated HTML" {
+    class: repo
+  }
+
+  kivy.ci -> generated: "push generated commit"
+}
+
+server: "Production server: kivy.org" {
+  direction: right
+  style.fill: "#F8FAFC"
+  style.stroke: "#0F766E"
+  style.stroke-width: 2
+  style.border-radius: 12
+
+  docs_container: "Docker service: docs\nSource: kivy/kivy-server" {
+    direction: down
+    style.fill: "#F0FDFA"
+    style.stroke: "#14B8A6"
+    style.border-radius: 10
+
+    cron: "dcron\nintended: every 10 minutes" {
+      class: process
+    }
+    checkout: "/kivy-website-docs\nlocal Git checkout" {
+      class: repo
+    }
+    sync: "/sync.sh\nfetch, reset, rsync" {
+      class: process
+    }
+
+    cron -> sync: "invoke"
+    checkout -> sync: "read docs-* branch"
+  }
+
+  volume: "Docker volume: kivy_doc\n/web/doc/<version>\n/web/doc/versions.json" {
+    class: storage
+  }
+
+  nginx_container: "Docker service: nginx\nSource: kivy/kivy-server" {
+    style.fill: "#F0FDFA"
+    style.stroke: "#14B8A6"
+    style.border-radius: 10
+
+    nginx: "nginx\n/doc/<version>/" {
+      class: process
+    }
+  }
+
+  docs_container.sync -> volume: "write generated files"
+  volume -> nginx_container.nginx: "read-only mount"
+}
+
+browser: "Documentation reader\nhttps://kivy.org/doc/<version>/" {
+  class: client
+}
+
+github.generated -> server.docs_container.checkout: "poll and fetch"
+server.nginx_container.nginx -> browser: "serve static files"
