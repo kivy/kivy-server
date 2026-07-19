@@ -1,5 +1,7 @@
 # Kivy Server
 
+[![Container image builds](https://github.com/kivy/kivy-server/actions/workflows/container-builds.yml/badge.svg)](https://github.com/kivy/kivy-server/actions/workflows/container-builds.yml)
+
 ## Architecture
 
 See [Documentation deployment flow](docs/deployment-flow.md) for the path from
