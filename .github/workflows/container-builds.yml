@@ -5,11 +5,45 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron: '15 6 * * 1'
 
 permissions:
   contents: read
 
 jobs:
+  validate:
+    name: Validate configuration
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Check shell syntax
+        run: |
+          sh -n blog/*.sh
+          sh -n docs/start.sh
+          sh -n downloads/cont/script/backup.sh
+          sh -n downloads/cont/script/entry.sh
+          sh -n downloads/cont/script/start.sh
+          sh -n mysql/*.sh
+          sh -n nginx/*.sh
+          sh -n site/*.sh
+          bash -n docs/sync.sh
+          bash -n downloads/cont/script/pypi_server.sh
+          bash -n downloads/cont/script/remove-wheels.sh
+
+      - name: Create Compose environment fixtures
+        run: |
+          mkdir -p .env/envfile
+          touch .env/envfile/downloads-s3-backup
+          touch .env/envfile/blog-s3-backup
+          touch .env/envfile/blog-mysql
+
+      - name: Validate Compose configuration
+        run: docker compose config
+
   build:
     name: Build ${{ matrix.image }}
     runs-on: ubuntu-latest
@@ -23,6 +57,12 @@ jobs:
           - image: docs
             context: .
             dockerfile: ./docs/Dockerfile
+          - image: site
+            context: ./site
+            dockerfile: ./site/Dockerfile
+          - image: downloads
+            context: .
+            dockerfile: ./downloads/Dockerfile
 
     steps:
       - name: Check out repository
@@ -31,10 +71,17 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
+      - name: Create downloads build fixture
+        if: matrix.image == 'downloads'
+        run: |
+          mkdir -p .env/file/downloads
+          touch .env/file/downloads/authorized_keys
+
       - name: Build image
         uses: docker/build-push-action@v7
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
+          no-cache: ${{ github.event_name == 'schedule' }}
           push: false
           tags: kivy-server-${{ matrix.image }}:ci
