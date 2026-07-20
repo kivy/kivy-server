@@ -1,6 +1,6 @@
 FROM mysql:5.7.38-debian
 
-ENV RCLONE_VERSION v1.42
+ENV RCLONE_VERSION=v1.42
 
 RUN set -ex \
     && apt-get update \
