@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.23.5
 
 RUN set -ex \
     && apk add --no-cache dcron bash git rsync nano \
